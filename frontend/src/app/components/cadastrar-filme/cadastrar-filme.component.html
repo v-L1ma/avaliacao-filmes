@@ -1,0 +1,56 @@
+@if (!isOpen) {
+    <div class="container" id="abrirForm">
+        <button (click)="open()">
+            <img src="plus.png" alt="Símbolo de mais">
+            <h1>Adicionar Novo Filme/Série</h1>
+            <p>Clique para adicionar um novo item</p>
+        </button>
+    </div>
+} @else {
+    <div class="container" id="form">
+        <header>
+            <h1>Adicionar Filme/Série</h1>
+            <button (click)="open()">X</button>
+        </header>
+
+        <form>
+            <div>
+                <label for="">Título *</label>
+                <input type="text" placeholder="Digite o título do filme ou série">
+            </div>
+
+            <div>
+                <label for="">Gênero *</label>
+                <select name="" id="">
+                    <option value="" disabled selected>Selecione um gênero</option>
+                    <option value="Ação">Ação</option>
+                    <option value="Aventura">Aventura</option>
+                    <option value="Comédia">Comédia</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Terror">Terror</option>
+                    <option value="Ficção Científica">Ficção Científica</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Suspense">Suspense</option>
+                    <option value="Animação">Animação</option>
+                    <option value="Documentário">Documentário</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="">URL da Imagem *</label>
+                <input type="url" placeholder="https://exemplo.com/imagem.jpg">
+            </div>
+
+            <div>
+                <label for="">Descrição *</label>
+                <textarea name="" id="" placeholder="Descrição opcional do filme ou série"></textarea>
+            </div>
+
+            <div id="botoes">
+                <button type="button" id="enviar">Adicionar filme</button>
+                <button type="button" id="cancelar" (click)="open()">Cancelar</button>
+            </div>
+        </form>
+        
+    </div>
+}

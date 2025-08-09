@@ -1,0 +1,56 @@
+@use "../../../style/variables.scss";
+
+div{
+    display: flex;
+    flex-direction: column;
+    background-color: variables.$background;
+    color: white;
+    gap: 2em;
+    padding: 2em;
+    border-radius: 1em;
+    border: 1px solid rgba(255, 255, 255, 0.062);
+
+    div{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1em;
+        gap: 1em;
+        border-radius: .5em;
+        border: none;
+    }
+
+    #likes{
+        background-color: variables.$green;
+        border: 1px solid variables.$green;
+        color: #4ADE80;
+    }
+
+    #dislikes{
+        background-color: variables.$red;
+        border: 1px solid variables.$red;
+        color: #f87171;
+    }
+
+    #total{
+        background-color: variables.$blue;
+        border: 1px solid variables.$blue;
+        color: #7191f8;
+    }
+}
+
+@media screen and (min-width:950px){
+    div{
+        div{
+            display: grid;
+            grid-template-columns: repeat(3,2fr);
+
+            div{
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+}

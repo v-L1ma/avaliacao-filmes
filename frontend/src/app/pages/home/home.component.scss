@@ -1,0 +1,39 @@
+body{
+    background-color: #141414;
+    
+    main{
+        width: 90vw;
+        margin: 0 auto;
+        gap: 2em;
+        display: flex;
+        flex-direction: column;
+
+        #galeria{
+            display: grid;
+            width: 100%;
+            grid-template-columns: repeat(1, auto);
+            gap: 2em;
+        }
+    }
+}
+
+
+@media screen and (min-width:950px){
+    body{
+        main{
+            #galeria{
+                grid-template-columns: repeat(2,auto);
+            }
+        }
+    }
+}
+
+@media screen and (min-width:1250px){
+    body{
+        main{
+            #galeria{
+                grid-template-columns: repeat(3,auto);
+            }
+        }
+    }
+}
