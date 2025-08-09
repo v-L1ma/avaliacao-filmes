@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class avaliarFilmeUseCase implements IAvaliarFilmeUseCase {
 
@@ -24,14 +26,6 @@ public class avaliarFilmeUseCase implements IAvaliarFilmeUseCase {
     @Override
     public CadastrarFilmeResponseDTO executar(String tipoVoto, int filmeId) {
         boolean filmeNaoExiste = repository.listarFilmesPorId(filmeId)==null;
-
-        if (filmeNaoExiste){
-            throw new FilmeNaoEncontradoException();
-        }
-
-//        if (!"gostei".equals(tipoVoto) && !"naoGostei".equals(tipoVoto)) {
-//            throw new votoInvalidoException();
-//        }
 
         Filme filme = Filme.converter(repository.listarFilmesPorId(filmeId));
 

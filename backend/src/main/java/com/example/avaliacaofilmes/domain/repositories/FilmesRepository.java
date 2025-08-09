@@ -1,8 +1,10 @@
 package com.example.avaliacaofilmes.domain.repositories;
 
+import com.example.avaliacaofilmes.domain.exceptions.votoInvalidoException;
 import com.example.avaliacaofilmes.infra.web.DTOs.CadastrarFilmeRequestDTO;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -41,12 +43,14 @@ public class FilmesRepository implements IFilmesRepository {
 
     @Override
     public void avaliarFilme(String tipoVoto, int filmeId) {
-        String sql;
+        String sql ="";
 
         if (tipoVoto.equals("naoGostei")){
             sql = "UPDATE filmes set naoGostei = naoGostei+1 WHERE id=?;";
-        } else {
+        } else  if (tipoVoto.equals("gostei")){
             sql = "UPDATE filmes set gostei= gostei + 1 WHERE id=?;";
+        } else {
+            throw new votoInvalidoException();
         }
 
         jdbc.update(sql, filmeId);
@@ -79,17 +83,20 @@ public class FilmesRepository implements IFilmesRepository {
     }
 
     @Override
-    public List<Map<String, Object>> buscarVotosTotais() {
-        return List.of();
+    public int buscarVotosTotais() {
+        String sql = "SELECT SUM(gostei + naoGostei) FROM filmes";
+        return jdbc.queryForObject(sql, Integer.class);
     }
 
     @Override
-    public List<Map<String, Object>> buscarVotosPositivos() {
-        return List.of();
+    public int buscarVotosPositivos() {
+        String sql = "SELECT SUM(gostei) FROM filmes";
+        return jdbc.queryForObject(sql, Integer.class);
     }
 
     @Override
-    public List<Map<String, Object>> buscarVotosNegativos() {
-        return List.of();
+    public int buscarVotosNegativos() {
+        String sql = "SELECT SUM(naoGostei) FROM filmes";
+        return jdbc.queryForObject(sql, Integer.class);
     }
 }

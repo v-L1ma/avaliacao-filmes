@@ -17,9 +17,9 @@ public interface IFilmesRepository {
 
     Map<String, Object> listarFilmesPorId(int id);
 
-    List<Map<String,Object>> buscarVotosTotais();
+    int buscarVotosTotais();
 
-    List<Map<String,Object>> buscarVotosPositivos();
+    int buscarVotosPositivos();
 
-    List<Map<String,Object>> buscarVotosNegativos();
+    int buscarVotosNegativos();
 }

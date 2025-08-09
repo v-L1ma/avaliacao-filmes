@@ -1,11 +1,12 @@
 package com.example.avaliacaofilmes.infra.web.controllers;
 
 import com.example.avaliacaofilmes.application.usecases.avaliarFilme.IAvaliarFilmeUseCase;
+import com.example.avaliacaofilmes.application.usecases.buscarVotosNegativos.IBuscarVotosNegativosUseCase;
+import com.example.avaliacaofilmes.application.usecases.buscarVotosPositivos.IBuscarVotosPositivosUseCase;
+import com.example.avaliacaofilmes.application.usecases.buscarVotosTotais.IBuscarVotosTotaisUseCase;
 import com.example.avaliacaofilmes.application.usecases.cadastrarFilme.ICadastrarFilmeUseCase;
 import com.example.avaliacaofilmes.application.usecases.listarFilmes.IListarFilmesUseCase;
-import com.example.avaliacaofilmes.infra.web.DTOs.CadastrarFilmeRequestDTO;
-import com.example.avaliacaofilmes.infra.web.DTOs.CadastrarFilmeResponseDTO;
-import com.example.avaliacaofilmes.infra.web.DTOs.ListarFilmesResponseDTO;
+import com.example.avaliacaofilmes.infra.web.DTOs.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,16 +19,25 @@ public class FilmeController {
     private final IListarFilmesUseCase listarFilmesUseCase;
     private final ICadastrarFilmeUseCase cadastrarFilmeUseCase;
     private final IAvaliarFilmeUseCase avaliarFilmeUseCase;
+    private final IBuscarVotosTotaisUseCase buscarVotosTotaisUseCase;
+    private final IBuscarVotosPositivosUseCase buscarVotosPositivosUseCase;
+    private final IBuscarVotosNegativosUseCase buscarVotosNegativosUseCase;
 
     @Autowired
     public FilmeController(
             IListarFilmesUseCase listarFilmesUseCase,
             ICadastrarFilmeUseCase cadastrarFilmeUseCase,
-            IAvaliarFilmeUseCase avaliarFilmeUseCase
+            IAvaliarFilmeUseCase avaliarFilmeUseCase,
+            IBuscarVotosTotaisUseCase buscarVotosTotaisUseCase,
+            IBuscarVotosPositivosUseCase buscarVotosPositivosUseCase,
+            IBuscarVotosNegativosUseCase buscarVotosNegativosUseCase
     ){
         this.listarFilmesUseCase = listarFilmesUseCase;
         this.cadastrarFilmeUseCase = cadastrarFilmeUseCase;
         this.avaliarFilmeUseCase = avaliarFilmeUseCase;
+        this.buscarVotosTotaisUseCase = buscarVotosTotaisUseCase;
+        this.buscarVotosPositivosUseCase = buscarVotosPositivosUseCase;
+        this.buscarVotosNegativosUseCase = buscarVotosNegativosUseCase;
     }
 
     @GetMapping
@@ -41,23 +51,26 @@ public class FilmeController {
     }
 
     @PostMapping("/votos/{filmeId}")
-    public ResponseEntity<CadastrarFilmeResponseDTO> avaliarFilme(@RequestBody String tipoVoto, @PathVariable int filmeId){
-        return ResponseEntity.ok(avaliarFilmeUseCase.executar(tipoVoto, filmeId));
+    public ResponseEntity<CadastrarFilmeResponseDTO> avaliarFilme(@RequestBody AvaliarFilmeDto dto, @PathVariable int filmeId){
+        return ResponseEntity.ok(avaliarFilmeUseCase.executar(dto.tipoVoto(), filmeId));
     }
 
     @GetMapping("votos")
-    public ResponseEntity<String> buscarVotosTotais(){
-        return ResponseEntity.ok("oi");
+    public ResponseEntity<BuscarVotosResponseDTO> buscarVotosTotais(){
+
+        return ResponseEntity.ok(buscarVotosTotaisUseCase.executar());
     }
 
     @GetMapping("votos/positivos")
-    public ResponseEntity<String> buscarVotosPositivos(){
-        return ResponseEntity.ok("oi");
+    public ResponseEntity<BuscarVotosResponseDTO> buscarVotosPositivos(){
+
+        return ResponseEntity.ok(buscarVotosPositivosUseCase.executar());
     }
 
     @GetMapping("votos/negativos")
-    public ResponseEntity<String> buscarVotosNegativos(){
-        return ResponseEntity.ok("oi");
+    public ResponseEntity<BuscarVotosResponseDTO> buscarVotosNegativos(){
+
+        return ResponseEntity.ok(buscarVotosNegativosUseCase.executar());
     }
 
 }
