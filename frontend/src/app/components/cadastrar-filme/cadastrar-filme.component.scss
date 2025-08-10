@@ -57,7 +57,7 @@
     transition: 170ms ease-in-out;
 
     header{
-        background-color: red;
+        background: linear-gradient(to right, #dc2626, #f97316);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -120,7 +120,7 @@
             }
 
             #enviar{
-                background-color: red;
+                background: linear-gradient(to right, #f97316, #dc2626);
                 width: 70%;
 
                 &:hover{

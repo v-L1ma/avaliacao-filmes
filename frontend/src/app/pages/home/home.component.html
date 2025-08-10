@@ -7,11 +7,15 @@
 
         <div id="galeria">
             
-            <app-card-movie></app-card-movie>
-            <app-card-movie></app-card-movie>
-            <app-card-movie></app-card-movie>
-            <app-card-movie></app-card-movie>
-            <app-card-movie></app-card-movie>
+           @for (filme of filmes; track $index) {
+            <app-card-movie 
+            [titulo]="filme.titulo" 
+            [genero]="filme.genero" 
+            [imagem]="filme.imagem"
+            [descricao]="filme.descricao" 
+            [gostei]="filme.gostei"
+            [naoGostei]="filme.naoGostei"></app-card-movie>
+           }
 
             <app-cadastrar-filme></app-cadastrar-filme>
 

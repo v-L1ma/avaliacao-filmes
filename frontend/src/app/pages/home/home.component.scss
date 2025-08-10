@@ -31,6 +31,7 @@ body{
 @media screen and (min-width:1250px){
     body{
         main{
+            width: 70vw;
             #galeria{
                 grid-template-columns: repeat(3,auto);
             }
