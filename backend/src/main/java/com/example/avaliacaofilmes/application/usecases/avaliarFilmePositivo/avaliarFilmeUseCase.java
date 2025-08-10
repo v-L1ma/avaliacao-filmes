@@ -1,6 +1,7 @@
 package com.example.avaliacaofilmes.application.usecases.avaliarFilmePositivo;
 
 import com.example.avaliacaofilmes.domain.entities.Filme;
+import com.example.avaliacaofilmes.domain.exceptions.FilmeNaoEncontradoException;
 import com.example.avaliacaofilmes.domain.repositories.IFilmesRepository;
 import com.example.avaliacaofilmes.infra.web.DTOs.CadastrarFilmeResponseDTO;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,9 @@ public class avaliarFilmeUseCase implements IAvaliarFilmeUseCase {
     public CadastrarFilmeResponseDTO positivo(int filmeId) {
         boolean filmeNaoExiste = repository.listarFilmesPorId(filmeId)==null;
 
-        Filme filme = Filme.converter(repository.listarFilmesPorId(filmeId));
+        if(filmeNaoExiste) {
+            throw new FilmeNaoEncontradoException();
+        }
 
         repository.avaliarFilmePositivo(filmeId);
 
@@ -32,7 +35,9 @@ public class avaliarFilmeUseCase implements IAvaliarFilmeUseCase {
     public CadastrarFilmeResponseDTO negativo(int filmeId) {
         boolean filmeNaoExiste = repository.listarFilmesPorId(filmeId)==null;
 
-        Filme filme = Filme.converter(repository.listarFilmesPorId(filmeId));
+        if(filmeNaoExiste) {
+            throw new FilmeNaoEncontradoException();
+        }
 
         repository.avaliarFilmeNegativo(filmeId);
 
