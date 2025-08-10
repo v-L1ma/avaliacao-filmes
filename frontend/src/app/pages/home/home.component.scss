@@ -11,7 +11,7 @@ body{
         #galeria{
             display: grid;
             width: 100%;
-            grid-template-columns: repeat(1, auto);
+            grid-template-columns: repeat(1, 1fr);
             gap: 2em;
         }
     }
@@ -22,7 +22,7 @@ body{
     body{
         main{
             #galeria{
-                grid-template-columns: repeat(2,auto);
+                grid-template-columns: repeat(2,1fr);
             }
         }
     }
@@ -33,7 +33,7 @@ body{
         main{
             width: 70vw;
             #galeria{
-                grid-template-columns: repeat(3,auto);
+                grid-template-columns: repeat(3,1fr);
             }
         }
     }

@@ -14,14 +14,14 @@ public class Filme {
     private int gostei;
     private int naoGostei;
 
-    public Filme(int id, String titulo, String genero, String descricao, String imagem, int naoGostei, int gostei) {
+    public Filme(int id, String titulo, String genero, String descricao, String imagem, int gostei, int naoGostei) {
         this.id = id;
         this.titulo = titulo;
         this.genero = genero;
         this.descricao = descricao;
         this.imagem = imagem;
-        this.naoGostei = naoGostei;
         this.gostei = gostei;
+        this.naoGostei = naoGostei;
     }
 
     public int getId() {
@@ -93,7 +93,7 @@ public class Filme {
 
         int gostei = (int) registro.get("gostei");
 
-        int naoGostei = (int) registro.get("naoGostei");
+        int naoGostei = (int) registro.get("naogostei");
 
         return new Filme(id,titulo,genero,descricao,imagem,gostei,naoGostei);
     }

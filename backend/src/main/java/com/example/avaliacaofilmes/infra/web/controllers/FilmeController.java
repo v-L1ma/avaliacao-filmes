@@ -1,6 +1,6 @@
 package com.example.avaliacaofilmes.infra.web.controllers;
 
-import com.example.avaliacaofilmes.application.usecases.avaliarFilme.IAvaliarFilmeUseCase;
+import com.example.avaliacaofilmes.application.usecases.avaliarFilmePositivo.IAvaliarFilmeUseCase;
 import com.example.avaliacaofilmes.application.usecases.buscarVotosNegativos.IBuscarVotosNegativosUseCase;
 import com.example.avaliacaofilmes.application.usecases.buscarVotosPositivos.IBuscarVotosPositivosUseCase;
 import com.example.avaliacaofilmes.application.usecases.buscarVotosTotais.IBuscarVotosTotaisUseCase;
@@ -51,9 +51,14 @@ public class FilmeController {
         return ResponseEntity.ok(cadastrarFilmeUseCase.executar(dto));
     }
 
-    @PostMapping("/votos/{filmeId}")
-    public ResponseEntity<CadastrarFilmeResponseDTO> avaliarFilme(@RequestBody AvaliarFilmeDto dto, @PathVariable int filmeId){
-        return ResponseEntity.ok(avaliarFilmeUseCase.executar(dto.tipoVoto(), filmeId));
+    @PostMapping("/votos/positivos/{filmeId}")
+    public ResponseEntity<CadastrarFilmeResponseDTO> avaliarFilmePositivo(@PathVariable int filmeId){
+        return ResponseEntity.ok(avaliarFilmeUseCase.positivo(filmeId));
+    }
+
+    @PostMapping("/votos/negativos/{filmeId}")
+    public ResponseEntity<CadastrarFilmeResponseDTO> avaliarFilmeNegativo(@PathVariable int filmeId){
+        return ResponseEntity.ok(avaliarFilmeUseCase.negativo(filmeId));
     }
 
     @GetMapping("votos")

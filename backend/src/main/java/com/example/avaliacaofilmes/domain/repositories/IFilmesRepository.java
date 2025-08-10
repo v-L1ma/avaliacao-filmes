@@ -9,7 +9,9 @@ import java.util.Map;
 public interface IFilmesRepository {
     void cadastrarFilme(CadastrarFilmeRequestDTO dto);
 
-    void avaliarFilme(String tipoVoto, int filmeId);
+    void avaliarFilmePositivo(int filmeId);
+
+    void avaliarFilmeNegativo(int filmeId);
 
     List<Map<String,Object>> listarFilmes();
 

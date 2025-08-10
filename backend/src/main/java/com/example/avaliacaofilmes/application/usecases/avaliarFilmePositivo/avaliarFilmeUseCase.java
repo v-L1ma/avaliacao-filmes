@@ -1,15 +1,9 @@
-package com.example.avaliacaofilmes.application.usecases.avaliarFilme;
+package com.example.avaliacaofilmes.application.usecases.avaliarFilmePositivo;
 
 import com.example.avaliacaofilmes.domain.entities.Filme;
-import com.example.avaliacaofilmes.domain.exceptions.FilmeNaoEncontradoException;
-import com.example.avaliacaofilmes.domain.exceptions.votoInvalidoException;
 import com.example.avaliacaofilmes.domain.repositories.IFilmesRepository;
 import com.example.avaliacaofilmes.infra.web.DTOs.CadastrarFilmeResponseDTO;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 @Service
 public class avaliarFilmeUseCase implements IAvaliarFilmeUseCase {
@@ -24,13 +18,24 @@ public class avaliarFilmeUseCase implements IAvaliarFilmeUseCase {
     }
 
     @Override
-    public CadastrarFilmeResponseDTO executar(String tipoVoto, int filmeId) {
+    public CadastrarFilmeResponseDTO positivo(int filmeId) {
         boolean filmeNaoExiste = repository.listarFilmesPorId(filmeId)==null;
 
         Filme filme = Filme.converter(repository.listarFilmesPorId(filmeId));
 
-        repository.avaliarFilme(tipoVoto, filmeId);
+        repository.avaliarFilmePositivo(filmeId);
 
-        return new CadastrarFilmeResponseDTO("Voto feito com sucesso!");
+        return new CadastrarFilmeResponseDTO("Voto gostei feito com sucesso!");
+    }
+
+    @Override
+    public CadastrarFilmeResponseDTO negativo(int filmeId) {
+        boolean filmeNaoExiste = repository.listarFilmesPorId(filmeId)==null;
+
+        Filme filme = Filme.converter(repository.listarFilmesPorId(filmeId));
+
+        repository.avaliarFilmeNegativo(filmeId);
+
+        return new CadastrarFilmeResponseDTO("Voto não gostei feito com sucesso!");
     }
 }

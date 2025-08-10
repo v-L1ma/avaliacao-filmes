@@ -9,10 +9,11 @@
             
            @for (filme of filmes; track $index) {
             <app-card-movie 
+            [id]="filme.id"
             [titulo]="filme.titulo" 
             [genero]="filme.genero" 
-            [imagem]="filme.imagem"
             [descricao]="filme.descricao" 
+            [imagem]="filme.imagem"
             [gostei]="filme.gostei"
             [naoGostei]="filme.naoGostei"></app-card-movie>
            }

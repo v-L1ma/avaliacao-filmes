@@ -42,17 +42,14 @@ public class FilmesRepository implements IFilmesRepository {
     }
 
     @Override
-    public void avaliarFilme(String tipoVoto, int filmeId) {
-        String sql ="";
+    public void avaliarFilmePositivo(int filmeId) {
+        String sql = "UPDATE filmes set gostei = gostei + 1 WHERE id = ?;";
+        jdbc.update(sql, filmeId);
+    }
 
-        if (tipoVoto.equals("naoGostei")){
-            sql = "UPDATE filmes set naoGostei = naoGostei+1 WHERE id=?;";
-        } else  if (tipoVoto.equals("gostei")){
-            sql = "UPDATE filmes set gostei= gostei + 1 WHERE id=?;";
-        } else {
-            throw new votoInvalidoException();
-        }
-
+    @Override
+    public void avaliarFilmeNegativo(int filmeId) {
+        String sql = "UPDATE filmes set naogostei = naogostei + 1 WHERE id = ?;";
         jdbc.update(sql, filmeId);
     }
 
