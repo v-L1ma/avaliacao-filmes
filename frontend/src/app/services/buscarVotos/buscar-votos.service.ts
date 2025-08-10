@@ -24,13 +24,24 @@ export class BuscarVotosService {
   }
 
   private carregarVotos() {
+    let votosLocal = JSON.parse(localStorage.getItem('votos')!)
+
+    if(votosLocal){
+      this.naoGostei = votosLocal.naoGostei
+      this.gostei = votosLocal.gostei
+      this.total = votosLocal.total
+      this.emitir(); 
+    }
+
     this.httpClient.get<BuscarVotosResponse>(`${environment.apiUrl}/filmes/votos/negativos`)
       .subscribe({
         next: (response) => {
           this.naoGostei = response.votos;
           this.emitir();
         },
-        error: (error) => { console.error(error); }
+        error: (error) => { 
+          console.error(error); 
+        }
       });
 
     this.httpClient.get<BuscarVotosResponse>(`${environment.apiUrl}/filmes/votos/positivos`)
@@ -39,7 +50,9 @@ export class BuscarVotosService {
           this.gostei = response.votos;
           this.emitir();
         },
-        error: (error) => { console.error(error); }
+        error: (error) => { 
+          console.error(error); 
+        }
       });
 
     this.httpClient.get<BuscarVotosResponse>(`${environment.apiUrl}/filmes/votos`)
@@ -48,8 +61,10 @@ export class BuscarVotosService {
           this.total = response.votos;
           this.emitir();
         },
-        error: (error) => { console.error(error); }
-      });
+        error: (error) => { 
+          console.error(error); 
+        }
+      });  
   }
 
   private emitir() {
@@ -58,6 +73,12 @@ export class BuscarVotosService {
       naoGostei: this.naoGostei,
       total: this.total
     });
+
+    localStorage.setItem('votos', JSON.stringify({
+      gostei: this.gostei,
+      naoGostei: this.naoGostei,
+      total: this.total
+    }))
   }
 
   votarGostei() {

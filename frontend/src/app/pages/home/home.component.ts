@@ -18,13 +18,20 @@ export class HomeComponent {
   filmes: Filme[] = [];
 
   constructor(private ListarFilmesService: ListarFilmesService){
+    this.listarFilmes()
+  }
+
+  listarFilmes(){
     this.ListarFilmesService.executar().subscribe({
       next:(response)=>{
         console.log(response)
+        localStorage.setItem('filmes', JSON.stringify(response.filmes))
         this.filmes=response.filmes;
       },
       error:(error)=>{
         console.log(error)
+        let filmesLocal = localStorage.getItem('filmes') 
+        filmesLocal ? this.filmes = JSON.parse(filmesLocal) : []
       }
     })
   }
